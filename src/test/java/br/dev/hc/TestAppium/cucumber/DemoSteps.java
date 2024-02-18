@@ -1,7 +1,8 @@
 package br.dev.hc.TestAppium.cucumber;
 
+import br.dev.hc.TestAppium.pages.DialogPage;
+import br.dev.hc.TestAppium.pages.SearchPage;
 import br.dev.hc.TestAppium.utils.Hooks;
-import io.appium.java_client.AppiumBy;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -9,20 +10,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class DemoSteps {
-
-  @Given("The app is open")
-  public void theAppIsOpen() {
-    WebElement el = Hooks.getDriver().findElement(new By.ByXPath("//Button"));
-    el.click();
-    Hooks.getDriver().getPageSource();
+  @When("Dismiss sing in page")
+  public void dismissSingInPage() {
+    Hooks.getDriver().findElement(DialogPage.signInFreDismissButton).click();
   }
 
-  @When("The app is open press the button")
-  public void theAppIsOpenPressTheButton() {
-
+  @When("Dismiss notification dialog")
+  public void dismissNotificationDialog() {
+    Hooks.getDriver().findElement(DialogPage.negativeButton).click();
   }
 
-  @Then("The app is open and the button is pressed")
-  public void theAppIsOpenAndTheButtonIsPressed() {
+  @Then("Search for {string} and touch enter")
+  public void searchForTermAndTouchEnter(String term) {
+    WebElement searchInput = Hooks.getDriver().findElement(SearchPage.searchInput);
+    searchInput.sendKeys(term);
+    searchInput.submit();
   }
 }
